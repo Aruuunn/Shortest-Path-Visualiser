@@ -21,17 +21,34 @@ function Grid(props) {
   for(let i =0;i<height;i++){
     let temp = []
       for(let j=0;j<width;j++){
-         if(i===props.end[0] && j===props.end[1]){
-          temp.push(<div  key={i+j} style={{width:'30px',height:'30px',border:'1px solid lightblue',WebkitUserSelect: 'none'}}><img src={end} alt="start" style={{width:'25px',height:'25px'}}/></div>)
-        }
-        else if(i===props.start[0] && j===props.start[1]){
-          temp.push(<div  key={i+j} style={{width:'30px',height:'30px',border:'1px solid lightblue',WebkitUserSelect: 'none'}}><img src={start} alt="start" style={{width:'25px',height:'25px'}}/></div>)
+       
+       
+       
+          if(i===props.start[0] && j===props.start[1]){
+            if(props.path.length){
+              temp.push(<div  key={i+j} style={{width:'30px',height:'30px',backgroundColor:'#fcf876',WebkitUserSelect: 'none'}}><img src={start} alt="start" style={{width:'25px',height:'25px'}}/></div>)
+         
+            }
+          else if(props.grid[i][j]===2){
+            temp.push(<div  key={i+j} style={{width:'30px',height:'30px',backgroundColor:'#3797a4',WebkitUserSelect: 'none'}}><img src={start} alt="start" style={{width:'25px',height:'25px'}}/></div>)
+          
+          }
+          else temp.push(<div  key={i+j} style={{width:'30px',height:'30px',border:'1px solid lightblue',WebkitUserSelect: 'none'}}><img src={start} alt="start" style={{width:'25px',height:'25px'}}/></div>)
         }
         else if(is_present(props.path,i,j)){
+          
           temp.push(<div  key={i+j} className="animation-target " style={{width:'30px',height:'30px',WebkitUserSelect: 'none',backgroundColor:'#fcf876'}}></div>)
         
         }
       
+      else if(i===props.end[0] && j===props.end[1]){
+        if(props.path.length){
+          temp.push(<div  key={i+j} style={{width:'30px',height:'30px',backgroundColor:'#fcf876',WebkitUserSelect: 'none'}}><img src={end} alt="start" style={{width:'25px',height:'25px'}}/></div>)
+      
+        }
+         else temp.push(<div  key={i+j} style={{width:'30px',height:'30px',border:'1px solid lightblue',WebkitUserSelect: 'none'}}><img src={end} alt="start" style={{width:'25px',height:'25px'}}/></div>)
+        }
+       
        else if(props.current && props.current[0]===i&&props.current[1]===j){
           temp.push(<div  key={i+j} style={{width:'30px',height:'30px',backgroundColor:'#fcf876',WebkitUserSelect: 'none'}}></div>)
         }
@@ -59,7 +76,7 @@ function Grid(props) {
   <div className="p-4">
  
    {list.map((obj,ind) => {
-   return <div className="row justify-content-center flex-nowrap" key={ind}>{obj}</div>
+   return <div className="row justify-content-center flex-nowrap" key={ind} >{obj}</div>
    })}
   </div>
   );

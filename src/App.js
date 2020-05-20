@@ -18,13 +18,15 @@ export class App extends Component {
     let path = Array(20).fill().map(() => Array(30).fill([]));
     let q = [[10,1]]
     let flag = 1;
+   
 while(q.length!==0 && flag){
-  await new Promise(done => setTimeout(() => done(), 1));  
+  await new Promise(done => setTimeout(() => done(), 0.0000001));  
+
   let current = q[0];
   q.shift()
   this.setState({current});
   let grid = this.state.grid;
-
+  grid[this.state.start[0]][this.state.start[1]] = 2;
   if(current[0]===this.state.end[0] && current[1]===this.state.end[1]){
     
     console.log(current)
@@ -68,8 +70,11 @@ while(q.length!==0 && flag){
     q = q.concat(list);}
   
 }
-//console.log(path[this.state.end[0]][this.state.end[1]].length)
-this.setState({path:path[this.state.end[0]][this.state.end[1]]})
+for(let i=0;i<path[this.state.end[0]][this.state.end[1]].length;i++){
+  await new Promise(done => setTimeout(() => done(), 0.0000001));  
+  this.setState({path:path[this.state.end[0]][this.state.end[1]].slice(0,i+1)})
+}
+//this.setState({path:path[this.state.end[0]][this.state.end[1]]})
   }
   toggleWall = (y,x,type) => {
     
@@ -93,19 +98,24 @@ this.setState({path:path[this.state.end[0]][this.state.end[1]]})
   render() {
     return (
     <div>
-      <div className="navbar navbar-light">
+      <div className="navbar navbar-dark " style={{backgroundColor:'#424874',color:'white'}}>
  <div className="navbar-brand">
-   Shortest Path Finder
+   Shortest Path Visualizer
  </div>
- <button className="nav-item btn" onClick={()=>this.visualize()}>
-find The path
+ <div>
+ <button className=" btn mx-4" onClick={()=>this.visualize()} style={{backgroundColor:'#dcd6f7',color:''}}>
+Find the Shortest Path
  </button>
- <button className="nav-item btn" onClick={() => this.setState({grid:Array(20).fill().map(() => Array(40).fill(0)),path:[]})}>
+ <button className=" btn mx-4" onClick={() => this.setState({grid:Array(20).fill().map(() => Array(40).fill(0)),path:[]})} style={{backgroundColor:'#dcd6f7',color:''}}>
  Clear Walls
  </button>
+ </div>
       </div>
+      
       <Grid height={this.state.height} grid={this.state.grid} path={this.state.path} current={this.state.current}  start={this.state.start} end={this.state.end} width={this.state.width}  toggleWall={this.toggleWall}/>
-    </div>);
+    
+      
+   </div>);
   }
 }
 
