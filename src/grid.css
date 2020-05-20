@@ -1,6 +1,6 @@
 .animation-target {
-    -webkit-animation: animation 1000ms linear both;
-    animation: animation 1000ms linear both;
+    -webkit-animation: animation 1500ms linear both;
+    animation: animation 1500ms linear both;
 }
 
 

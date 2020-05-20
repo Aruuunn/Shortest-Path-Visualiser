@@ -14,7 +14,7 @@ const is_present = (arr,y,x) => {
 
 function Grid(props) {
   
-  const height = props.height ||20 ;
+  const height = props.height ||20;
   const width = props.width || 30;
   let list = [];
 
@@ -30,7 +30,7 @@ function Grid(props) {
          
             }
           else if(props.grid[i][j]===2){
-            temp.push(<div  key={i+j} style={{width:'30px',height:'30px',backgroundColor:'#3797a4',WebkitUserSelect: 'none'}}><img src={start} alt="start" style={{width:'25px',height:'25px'}}/></div>)
+            temp.push(<div  key={i+j} style={{width:'30px',height:'30px',backgroundColor:'#8ccbbe',WebkitUserSelect: 'none'}}><img src={start} alt="start" style={{width:'25px',height:'25px'}}/></div>)
           
           }
           else temp.push(<div  key={i+j} style={{width:'30px',height:'30px',border:'1px solid lightblue',WebkitUserSelect: 'none'}}><img src={start} alt="start" style={{width:'25px',height:'25px'}}/></div>)
@@ -50,21 +50,21 @@ function Grid(props) {
         }
        
        else if(props.current && props.current[0]===i&&props.current[1]===j){
-          temp.push(<div  key={i+j} style={{width:'30px',height:'30px',backgroundColor:'#fcf876',WebkitUserSelect: 'none'}}></div>)
+          temp.push(<div  key={i+j} style={{width:'30px',height:'30px',backgroundColor:'#fcf876',WebkitUserSelect: 'none',borderRadius:'50%'}}></div>)
         }
         else if(props.grid[i][j]===3){
-          temp.push(<div  key={i+j} className="animation-target " style={{width:'30px',height:'30px',backgroundColor:'#3797a4',WebkitUserSelect: 'none'}}></div>)
+          temp.push(<div  key={i+j} className="animation-target" style={{width:'30px',height:'30px',backgroundColor:'#8ccbbe',WebkitUserSelect: 'none'}}></div>)
         }
-        else if(props.grid[i][j]===2){
-          temp.push(<div  key={i+j} className="animation-target " style={{width:'30px',height:'30px',backgroundColor:'#8ccbbe',WebkitUserSelect: 'none'}}></div>)
+        // else if(props.grid[i][j]===2 && props.visualize){
+        //   temp.push(<div  key={i+j} className="animation-target " style={{width:'30px',height:'30px',backgroundColor:'#8ccbbe',WebkitUserSelect: 'none'}}></div>)
         
-        }
+        // }
         
         else if(props.grid[i][j]===1){
-          temp.push(<div key={i+j} className="animation-target animate__shakeX" style={{width:'30px',height:'30px',backgroundColor:'#202060',WebkitUserSelect: 'none'}} onTouchStart={(e)=> {if(window.event.buttons===1){props.toggleWall(i,j,1)};}}   onMouseOver={(e)=> {if(window.event.buttons===1){props.toggleWall(i,j,1)};}} onClick={(e)=> {props.toggleWall(i,j,1);}} ></div>)
+          temp.push(<div key={i+j} className="animation-target" style={{width:'30px',height:'30px',backgroundColor:'#202060',WebkitUserSelect: 'none'}} onTouchStart={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,1)};}}   onMouseOver={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,1)};}} onClick={(e)=> {if(!props.visualize)props.toggleWall(i,j,1);}} ></div>)
         }
         else{
-          temp.push(<div  key={i+j}  style={{width:'30px',height:'30px',border:'1px solid lightblue',WebkitUserSelect: 'none'}} onTouchStart={(e)=> {if(window.event.buttons===1){props.toggleWall(i,j,0)}}}  onMouseOver={(e)=> {if(window.event.buttons===1){props.toggleWall(i,j,0)}}} onClick={(e)=> {props.toggleWall(i,j,0);}}></div>)
+          temp.push(<div  key={i+j}  style={{width:'30px',height:'30px',border:'1px solid lightblue',WebkitUserSelect: 'none'}} onTouchStart={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,0)}}}  onMouseOver={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,0)}}} onClick={(e)=> {if(!props.visualize)props.toggleWall(i,j,0);}}></div>)
         }
   
       }
