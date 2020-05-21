@@ -61,10 +61,10 @@ function Grid(props) {
         // }
         
         else if(props.grid[i][j]===1){
-          temp.push(<div key={i+j} className="animation-target" style={{width:'30px',height:'30px',backgroundColor:'#202060',WebkitUserSelect: 'none'}} onTouchStart={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,1)};}}   onMouseOver={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,1)};}} onClick={(e)=> {if(!props.visualize)props.toggleWall(i,j,1);}} ></div>)
+          temp.push(<div key={i+j} className="animation-target" style={{width:'30px',height:'30px',backgroundColor:'#202060',WebkitUserSelect: 'none'}} onTouchStart={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,1)};}}   onMouseEnter={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,1)};}} onClick={(e)=> {if(!props.visualize)props.toggleWall(i,j,1);}} ></div>)
         }
         else{
-          temp.push(<div  key={i+j}  style={{width:'30px',height:'30px',border:'1px solid lightblue',WebkitUserSelect: 'none'}} onTouchStart={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,0)}}}  onMouseOver={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,0)}}} onClick={(e)=> {if(!props.visualize)props.toggleWall(i,j,0);}}></div>)
+          temp.push(<div  key={i+j}  style={{width:'30px',height:'30px',border:'1px solid lightblue',WebkitUserSelect: 'none'}} onTouchStart={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,0)}}}  onMouseEnter={(e)=> {if(window.event.buttons===1&&!props.visualize){props.toggleWall(i,j,0)}}} onClick={(e)=> {if(!props.visualize)props.toggleWall(i,j,0);}}></div>)
         }
   
       }

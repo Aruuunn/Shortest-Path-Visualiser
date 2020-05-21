@@ -181,8 +181,8 @@ grid:state.grid.map(row => row.map(obj => {
   return obj;
   else return 0;
 })),path:[]
-      }
-    })
+      
+    ,current:null}})
   }
   toggleWall = (y,x,type) => {
     
@@ -236,7 +236,7 @@ Visualize {this.state.method===0?" Dijkstra's Algorithm " : " A* "}
    
   </div>
 </div>
- <button className=" btn mx-4" onClick={() => this.setState({grid:Array(20).fill().map(() => Array(40).fill(0)),path:[]})} style={{backgroundColor:'#dcd6f7',}} disabled={this.state.visualize}>
+ <button className=" btn mx-4" onClick={() => this.setState({grid:Array(20).fill().map(() => Array(40).fill(0)),path:[],current:null})} style={{backgroundColor:'#dcd6f7',}} disabled={this.state.visualize}>
  Clear Walls
  </button>
  <button className=" btn mx-4" onClick={()=>this.clearPath()} style={{backgroundColor:'#dcd6f7',}} disabled={this.state.visualize}>
@@ -265,6 +265,10 @@ Visualize {this.state.method===0?" Dijkstra's Algorithm " : " A* "}
         <div className="row mx-4">
           Shortest Path Node:
         <div className="mx-2" style={{width:'30px',height:'30px',backgroundColor:'#fcf876',WebkitUserSelect: 'none'}}></div>
+        </div>
+        <div className="row mx-4">
+          Wall Node:
+        <div className="mx-2" style={{width:'30px',height:'30px',backgroundColor:'#202060',WebkitUserSelect: 'none'}}></div>
         </div>
       </div>
       </div>
