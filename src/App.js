@@ -4,6 +4,14 @@ import Grid from "./grid";
 import PriorityQueue from './priorityq';
 import end from './times-circle-solid.svg';
 import start from './play-solid.svg';
+
+const Modal = () => {
+  return (
+  <div style={{position:"fixed",top:'200px',color:'white',left:'44vw'}} className="p-4 bg-dark rounded shadow-lg animation-target">
+   Path to the target Not Found !
+  </div>
+  );
+}
 export class App extends Component {
   state = {
   
@@ -18,6 +26,7 @@ export class App extends Component {
     grid:Array(20).fill().map(() => Array(40).fill(0)),
     visualize:false,
     method:0,
+    showModal:false,
     speed:1
   }
   componentDidMount(){
@@ -30,11 +39,12 @@ export class App extends Component {
     }
     this.setState({heuristic})
   }
+
   visualizeA = async () => {
   //let q=[this.state.start];
   this.clearPath()
   this.setState({visualize:true})
-  
+  let flag = 0;
   let path = Array(20).fill().map(() => Array(40).fill([]));
   let q = new PriorityQueue();
 
@@ -48,7 +58,7 @@ export class App extends Component {
   q.dequeue();
   this.setState({current});
   if(current[0]===this.state.end[0] && current[1]===this.state.end[1]){
-    
+    flag = 1;
     console.log(current)
     break;
    
@@ -83,7 +93,7 @@ export class App extends Component {
     path[current[0]][current[1]-1] = [ ...path[current[0]][current[1]],current];
 }
   }
-
+  
   for(let i=0;i<list.length;i++){
     grid[list[i][0]][list[i][1]] = 2;
   }
@@ -91,11 +101,16 @@ export class App extends Component {
 
   this.setState({grid});
   }
-  console.log(path[this.state.end[0]][this.state.end[1]].length)
+  if(flag===0){
+this.setState({current:null,showModal:true});
+setTimeout(()=>this.setState({showModal:false}),5000);
+  }
+  else
+ { console.log(path[this.state.end[0]][this.state.end[1]].length)
   for(let i=0;i<path[this.state.end[0]][this.state.end[1]].length;i++){
     await new Promise(done => setTimeout(() => done(), 0.0000001));  
     this.setState({path:path[this.state.end[0]][this.state.end[1]].slice(0,i+1)})
-  }
+  }}
   //this.setState({path:path[this.state.end[0]][this.state.end[1]]})
   this.setState({visualize:false})
   }
@@ -106,6 +121,7 @@ export class App extends Component {
     let flag = 1;
     this.clearPath()
    this.setState({visualize:true})
+  
 while(q.length!==0 && flag){
   await new Promise(done => setTimeout(() => done(), this.state.speed));  
 
@@ -118,6 +134,7 @@ while(q.length!==0 && flag){
     
     console.log(current)
     flag=0;
+    
    
   }
   else{
@@ -163,11 +180,16 @@ while(q.length!==0 && flag){
     q = q.concat(list);}
   
 }
+if(flag!==0){
+this.setState({showModal:true,current:null});
+setTimeout(()=>this.setState({showModal:false}),5000);
+}
+else {
 console.log(path[this.state.end[0]][this.state.end[1]].length)
 for(let i=0;i<path[this.state.end[0]][this.state.end[1]].length;i++){
   await new Promise(done => setTimeout(() => done(), 0.0000001));  
   this.setState({path:path[this.state.end[0]][this.state.end[1]].slice(0,i+1)})
-}
+}}
 //this.setState({path:path[this.state.end[0]][this.state.end[1]]})
 this.setState({visualize:false})
   }
@@ -206,6 +228,8 @@ grid:state.grid.map(row => row.map(obj => {
   render() {
     return (
     <div>
+      {this.state.showModal?<Modal />:null}
+     
       <div className="navbar navbar-dark " style={{backgroundColor:'#424874',color:'white'}}>
  <div className="navbar-brand">
    <img src={logo} style={{width:'auto',height:'30px'}}alt="logo" className="mr-4"/>
