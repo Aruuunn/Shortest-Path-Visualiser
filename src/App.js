@@ -192,6 +192,7 @@ export class App extends Component {
 
     this.setState({ visualize: false });
   };
+  
   visualizeDijkstra = async () => {
     //Note: Since This Web App only supports unweighted graph , BFS is being implemented as Dijkstra's Algorithm becomes BFS in Unweighted Graphs
     let path = Array(20)
@@ -200,22 +201,26 @@ export class App extends Component {
     let q = [this.state.start];//queue to implement BFS
     let flag = 1;
     this.clearPath();
+
     this.setState({ visualize: true });//To disable buttons
 
+    let grid = this.state.grid;
+
     while (q.length !== 0 && flag) {
-      await new Promise((done) => setTimeout(() => done(), this.state.speed));//To slow down the speed of Animation
+     
 
-      let current = q[0];
+      const current = q[0];
+
       q.shift();
-      this.setState({ current });
-
-      let grid = this.state.grid;
+      if(grid[current[0]][current[1]]!==0){
+        continue;
+      }
       
       if (
         current[0] === this.state.end[0] &&
         current[1] === this.state.end[1]
       ) {
-        console.log(current);
+        
         flag = 0;
       } else {
         let list = [];
@@ -260,7 +265,9 @@ export class App extends Component {
      
         grid[current[0]][current[1]] = 3;
 
-        this.setState({ grid });
+        this.setState({ grid ,current});
+        await new Promise((done) => setTimeout(() => done(), this.state.speed));//To slow down the speed of Animation
+
         q = q.concat(list);
       }
     }
